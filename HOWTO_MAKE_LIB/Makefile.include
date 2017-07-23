@@ -1,0 +1,23 @@
+##
+##	Makefile for ".config" ...
+##
+
+include .config
+
+PLATFORM =
+CC = $(PLATFORM)gcc
+
+ifeq ($(CONFIG_LIB),static)
+target : clean
+	@echo "CONFIG_LIB: $(CONFIG_LIB)"
+	$(MAKE) -C /home/funfun/HOWTO_MAKE_LIB -f Makefile.staticlib CC=$(CC)
+
+else
+target : clean
+	@echo "CONFIG_LIB: $(CONFIG_LIB)" 
+	$(MAKE) -C /home/funfun/HOWTO_MAKE_LIB -f Makefile.sharedlib CC=$(CC)
+endif
+
+clean :
+	rm -f *.a *.so *.o main
+

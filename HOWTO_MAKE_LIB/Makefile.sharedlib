@@ -1,0 +1,38 @@
+##
+## Makefile : for Static/Shared(Dynamic) Library Programming
+##
+##
+
+PLATFORM = 
+
+CC = $(PLATFORM)gcc
+CFLAGS = -Wall 
+
+MAIN_SRC = main
+LIB_SRC1 = libfunc1
+LIB_SRC2 = libfunc2
+
+LIB_OUT = libfunfun.so
+
+all : $(MAIN_SRC)
+
+$(MAIN_SRC) : $(MAIN_SRC).o $(LIB_OUT)
+	$(CC) -o $(MAIN_SRC) $(MAIN_SRC).o -L. -lfunfun
+
+$(LIB_OUT) : $(LIB_SRC1).o $(LIB_SRC2).o
+	$(CC) -shared  -o $(LIB_OUT) $(LIB_SRC1).o $(LIB_SRC2).o 
+
+$(MAIN_SRC).o : $(MAIN_SRC).c
+	$(CC) -c $(MAIN_SRC).c 
+
+$(LIB_SRC1).o : $(LIB_SRC1).c
+	$(CC) -fPIC -c $(LIB_SRC1).c
+# gcc -f[option...]
+# -fPIC : PIC -> Position Independent Code
+
+$(LIB_SRC2).o : $(LIB_SRC2).c
+	$(CC) -fPIC -c $(LIB_SRC2).c
+
+clean :
+	rm -f *.o *.so $(MAIN_SRC)
+
