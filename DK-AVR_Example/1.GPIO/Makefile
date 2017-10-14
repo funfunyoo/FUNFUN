@@ -36,7 +36,7 @@ all: $(TARGETNAME).dis $(TARGETNAME).hex
  
 .PHONY: upload
 upload: $(TARGETNAME).dis $(TARGETNAME).hex
-	avrdude -F -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -v -v -U flash:w:$(TARGETNAME).hex
+	sudo avrdude -F -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -v -v -U flash:w:$(TARGETNAME).hex
 	avr-size $(TARGETNAME).elf
  
 .PHONY: clean
